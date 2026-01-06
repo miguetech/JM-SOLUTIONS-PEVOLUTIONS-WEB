@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import { LoginBox, TopPlayers, ServerInfo } from '../components/Sidebar';
+import Footer from '../components/Footer';
+---
+
+<Layout title="PEvolutions - Pokémon Online Game">
+	<Navbar client:load />
+	
+	<main class="max-w-7xl mx-auto px-6 py-12">
+		<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+			{/* Right Column: Sidebar (Appears first on mobile) */}
+			<aside class="lg:col-span-4 lg:order-2 flex flex-col gap-y-10">
+				<div><LoginBox client:load /></div>
+				<div><TopPlayers client:visible /></div>
+				<div><ServerInfo client:load /></div>
+			</aside>
+
+			{/* Left Column: Hero/News */}
+			<div class="lg:col-span-8 lg:order-1 space-y-8">
+				<Hero client:visible />
+			</div>
+		</div>
+	</main>
+
+	<Footer client:visible />
+</Layout>
