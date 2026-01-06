@@ -95,8 +95,8 @@ const OnlinePlayers: React.FC = () => {
       {/* Players List */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {filteredAndSortedPlayers.map((player) => (
-          <div key={player.id} className="glass-card p-3 flex items-center justify-between group hover:border-brand-accent/50 transition-all duration-300 relative overflow-hidden">
-            <div className="flex items-center gap-3 relative z-10 min-w-0">
+          <div key={player.id} className="glass-card p-3 flex items-center gap-3 group hover:border-brand-accent/50 transition-all duration-300 relative overflow-hidden">
+            <div className="flex flex-1 items-center gap-3 relative z-10 min-w-0">
               {/* Avatar Section */}
               <div className="w-12 h-12 shrink-0 rounded-xl bg-brand-bg/50 border border-white/5 flex items-center justify-center overflow-hidden relative group-hover:bg-brand-accent/10 transition-colors">
                 <img 
@@ -108,15 +108,15 @@ const OnlinePlayers: React.FC = () => {
               </div>
               
               {/* Info Section */}
-              <div className="flex flex-col min-w-0">
+              <div className="flex flex-col min-w-0 flex-1">
                 <span className="text-base font-bold text-white group-hover:text-brand-accent transition-colors truncate">{player.name}</span>
                 <div className="flex items-center gap-2 mt-0.5">
-                  <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/5 border border-white/5">
+                  <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/5 border border-white/5 shrink-0">
                     <span className="text-[9px] font-black text-gray-500 uppercase">Lv.</span>
                     <span className="text-xs font-bold text-white">{player.level}</span>
                   </div>
-                  <div className="w-1 h-1 bg-white/10 rounded-full hidden sm:block"></div>
-                  <span className={`text-[10px] font-bold hidden sm:block ${player.gender === 'boy' ? 'text-blue-400/80' : 'text-pink-400/80'}`}>
+                  <div className="w-1 h-1 bg-white/10 rounded-full hidden xs:block"></div>
+                  <span className={`text-[10px] font-bold hidden sm:block truncate ${player.gender === 'boy' ? 'text-blue-400/80' : 'text-pink-400/80'}`}>
                     {player.gender === 'boy' ? 'Boy' : 'Girl'}
                   </span>
                 </div>
@@ -124,20 +124,20 @@ const OnlinePlayers: React.FC = () => {
             </div>
 
             {/* Stats Grid */}
-            <div className="flex items-center gap-2 sm:gap-4 shrink-0 relative z-10 ml-2">
-              <div className={`flex flex-col items-center px-1 sm:px-3 transition-opacity duration-300 ${sortBy === 'captures' ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>
+            <div className="flex items-center shrink-0 relative z-10 ml-auto border-l border-white/5 pl-3">
+              <div className={`flex flex-col items-center min-w-[50px] transition-opacity duration-300 ${sortBy === 'captures' ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>
                 <span className="text-[8px] font-black text-brand-pokemon-gold uppercase tracking-tighter">Captures</span>
-                <span className="text-base font-black text-white">{player.captures}</span>
+                <span className="text-sm font-black text-white">{player.captures}</span>
               </div>
-              <div className="w-[1px] h-6 bg-white/5"></div>
-              <div className={`flex flex-col items-center px-1 sm:px-3 transition-opacity duration-300 ${sortBy === 'fishingLevel' ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>
+              <div className="w-[1px] h-6 bg-white/5 mx-2 sm:mx-3"></div>
+              <div className={`flex flex-col items-center min-w-[50px] transition-opacity duration-300 ${sortBy === 'fishingLevel' ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>
                 <span className="text-[8px] font-black text-blue-400 uppercase tracking-tighter">Fishing</span>
-                <span className="text-base font-black text-white">{player.fishingLevel}</span>
+                <span className="text-sm font-black text-white">{player.fishingLevel}</span>
               </div>
             </div>
 
             {/* Background Accent for Active Stat */}
-            {sortBy === 'captures' && <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-brand-pokemon-gold/5 blur-22xl pointer-events-none"></div>}
+            {sortBy === 'captures' && <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-brand-pokemon-gold/5 blur-2xl pointer-events-none"></div>}
             {sortBy === 'fishingLevel' && <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-blue-400/5 blur-2xl pointer-events-none"></div>}
             {sortBy === 'level' && <div className="absolute left-0 top-0 bottom-0 w-1/3 bg-brand-accent/5 blur-2xl pointer-events-none"></div>}
           </div>
