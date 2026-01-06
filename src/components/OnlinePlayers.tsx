@@ -124,15 +124,15 @@ const OnlinePlayers: React.FC = () => {
             </div>
 
             {/* Stats Grid */}
-            <div className="flex flex-col sm:flex-row items-center shrink-0 relative z-10 ml-auto border-l border-white/5 pl-2 sm:pl-3 gap-1.5 sm:gap-0">
-              <div className={`flex flex-col items-center min-w-[45px] sm:min-w-[50px] transition-opacity duration-300 ${sortBy === 'captures' ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>
-                <span className="text-[7px] sm:text-[8px] font-black text-brand-pokemon-gold uppercase tracking-tighter">Captures</span>
-                <span className="text-xs sm:text-sm font-black text-white leading-none">{player.captures}</span>
+            <div className="flex items-center shrink-0 relative z-10 ml-auto border-l border-white/5 pl-3">
+              <div className={`flex flex-col items-center min-w-[50px] transition-opacity duration-300 ${sortBy === 'captures' ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>
+                <span className="text-[8px] font-black text-brand-pokemon-gold uppercase tracking-tighter">Captures</span>
+                <span className="text-sm font-black text-white">{player.captures}</span>
               </div>
-              <div className="hidden sm:block w-[1px] h-6 bg-white/5 mx-2 sm:mx-3"></div>
-              <div className={`flex flex-col items-center min-w-[45px] sm:min-w-[50px] transition-opacity duration-300 ${sortBy === 'fishingLevel' ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>
-                <span className="text-[7px] sm:text-[8px] font-black text-blue-400 uppercase tracking-tighter">Fishing</span>
-                <span className="text-xs sm:text-sm font-black text-white leading-none">{player.fishingLevel}</span>
+              <div className="w-[1px] h-6 bg-white/5 mx-2 sm:mx-3"></div>
+              <div className={`flex flex-col items-center min-w-[50px] transition-opacity duration-300 ${sortBy === 'fishingLevel' ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>
+                <span className="text-[8px] font-black text-blue-400 uppercase tracking-tighter">Fishing</span>
+                <span className="text-sm font-black text-white">{player.fishingLevel}</span>
               </div>
             </div>
 
