@@ -74,7 +74,7 @@ const Community: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+    <div className="space-y-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
       {/* Community Hero */}
       <div className="relative overflow-hidden rounded-3xl glass-card border-none">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/20 to-purple-600/20 mix-blend-overlay"></div>
