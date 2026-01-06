@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar';
+import CommunityHub from '../components/Community';
+import Footer from '../components/Footer';
+import { ServerInfo, TopPlayers } from '../components/Sidebar';
+---
+
+<Layout title="Community Hub - PEvolutions">
+	<Navbar client:load />
+	
+	<main class="max-w-7xl mx-auto px-6 py-12">
+		<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+			{/* Right Column: Sidebar (First on mobile) */}
+			<aside class="lg:col-span-4 lg:order-2 flex flex-col gap-y-10">
+				<div><ServerInfo client:load /></div>
+				<div><TopPlayers client:visible /></div>
+			</aside>
+
+			{/* Left Column: Community Content */}
+			<div class="lg:col-span-8 lg:order-1">
+				<CommunityHub client:load />
+			</div>
+		</div>
+	</main>
+
+	<Footer client:visible />
+</Layout>
