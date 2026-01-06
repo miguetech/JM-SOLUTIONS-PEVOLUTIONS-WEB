@@ -31,6 +31,9 @@ const Footer: React.FC = () => {
           <p className="text-sm text-gray-500">
             &copy; {new Date().getFullYear()} PEvolutions. All rights reserved.
           </p>
+          <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest mt-1">
+            Powered By <span className="text-brand-accent/60">JM Solutions</span>
+          </p>
         </div>
       </div>
     </footer>
