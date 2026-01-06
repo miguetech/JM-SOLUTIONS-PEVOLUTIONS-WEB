@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar';
-import OnlinePlayers from '../components/OnlinePlayers';
+import OnlinePlayersList from '../components/OnlinePlayers';
 import Footer from '../components/Footer';
 import { ServerInfo, TopPlayers } from '../components/Sidebar';
 ---
@@ -19,7 +19,7 @@ import { ServerInfo, TopPlayers } from '../components/Sidebar';
 
 			{/* Left Column: Online Players List */}
 			<div class="lg:col-span-8 lg:order-1 space-y-8">
-				<OnlinePlayers client:load />
+				<OnlinePlayersList client:load />
 			</div>
 		</div>
 	</main>
