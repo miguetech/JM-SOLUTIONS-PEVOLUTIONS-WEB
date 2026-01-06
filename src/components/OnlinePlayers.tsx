@@ -12,7 +12,11 @@ interface Player {
 
 type SortOption = 'level' | 'captures' | 'fishingLevel';
 
-const OnlinePlayers: React.FC = () => {
+interface Props {
+  lang: 'en' | 'es' | 'pt';
+}
+
+const OnlinePlayers: React.FC<Props> = ({ lang }) => {
   const [sortBy, setSortBy] = useState<SortOption>('level');
   const [search, setSearch] = useState('');
 
@@ -21,7 +25,7 @@ const OnlinePlayers: React.FC = () => {
     { id: 1, name: 'Sylarnal', level: 85, captures: 120, fishingLevel: 45, avatar: 'https://img.pokemondb.net/sprites/black-white/anim/normal/charizard.gif', gender: 'boy' },
     { id: 2, name: 'Zaps', level: 72, captures: 340, fishingLevel: 89, avatar: 'https://img.pokemondb.net/sprites/black-white/anim/normal/pikachu.gif', gender: 'boy' },
     { id: 3, name: 'MistyTrainer', level: 45, captures: 85, fishingLevel: 99, avatar: 'https://img.pokemondb.net/sprites/black-white/anim/normal/starmie.gif', gender: 'girl' },
-    { id: 4, name: 'AshKetchum', level: 99, captures: 1500, fishingLevel: 12, avatar: 'https://img.pokemondb.net/sprites/black-white/anim/normal/greninja.gif', gender: 'boy' },
+    { id: 4, name: 'AshKetchum', level: 99, captures: 1500, fishingLevel: 12, avatar: 'https://img.pokemondb.net/sprites/black-white/anim/normal/butterfree.gif', gender: 'boy' },
     { id: 5, name: 'PokeQueen', level: 64, captures: 230, fishingLevel: 67, avatar: 'https://img.pokemondb.net/sprites/black-white/anim/normal/gardevoir.gif', gender: 'girl' },
     { id: 6, name: 'Bruno', level: 33, captures: 12, fishingLevel: 5, avatar: 'https://img.pokemondb.net/sprites/black-white/anim/normal/machamp.gif', gender: 'boy' },
     { id: 7, name: 'Dawn', level: 58, captures: 110, fishingLevel: 78, avatar: 'https://img.pokemondb.net/sprites/black-white/anim/normal/piplup.gif', gender: 'girl' },

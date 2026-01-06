@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
+interface Props {
+  lang?: 'en' | 'es' | 'pt';
+}
+
+const Footer: React.FC<Props> = ({ lang }) => {
   return (
     <footer className="w-full py-12 px-6 border-t border-white/5 mt-12 bg-black/20">
       <div className="max-w-7xl mx-auto flex flex-col items-center gap-8">

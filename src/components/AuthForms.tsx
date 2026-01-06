@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
+import { useLocalizedPath, useTranslations } from '../i18n/utils';
+import { CountrySelector } from './CountrySelector';
 
 interface AuthFormProps {
   type: 'login' | 'register';
+  lang: 'en' | 'es' | 'pt';
 }
 
-export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
+export const AuthForm: React.FC<AuthFormProps> = ({ type, lang }) => {
   const isLogin = type === 'login';
+  const l = useLocalizedPath(lang);
+  const t = useTranslations(lang);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [country, setCountry] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,7 +29,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         const user = JSON.parse(storedUser);
         if (user.username === username && user.password === password) {
           localStorage.setItem('isLoggedIn', 'true');
-          window.location.href = '/account';
+          window.location.href = l('/account');
           return;
         }
       }
@@ -34,10 +40,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         setError('Passwords do not match.');
         return;
       }
-      const user = { username, email, password };
+      if (!country) {
+        setError('Please select a country.');
+        return;
+      }
+      const user = { username, email, password, country: country };
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('isLoggedIn', 'true');
-      window.location.href = '/account';
+      window.location.href = l('/account');
     }
   };
 
@@ -71,17 +81,26 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         </div>
 
         {!isLogin && (
-          <div className="space-y-2">
-            <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-1">Email Address</label>
-            <input 
-              type="email" 
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@email.com"
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-accent/50 transition-all font-medium"
+          <>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-1">Email Address</label>
+              <input 
+                type="email" 
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@email.com"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-accent/50 transition-all font-medium"
+              />
+            </div>
+
+            <CountrySelector 
+              label={t('form.country')}
+              placeholder={t('form.select_country')}
+              value={country}
+              onChange={setCountry}
             />
-          </div>
+          </>
         )}
 
         <div className="space-y-2">
@@ -125,7 +144,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
       <div className="mt-10 pt-8 border-t border-white/5 text-center">
         <p className="text-sm font-medium text-gray-400">
           {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <a href={isLogin ? "/register" : "/login"} className="text-brand-accent hover:text-brand-accent/80 transition-colors font-black uppercase tracking-wider text-xs ml-1">
+          <a href={isLogin ? l("/register") : l("/login")} className="text-brand-accent hover:text-brand-accent/80 transition-colors font-black uppercase tracking-wider text-xs ml-1">
             {isLogin ? 'Sign up now' : 'Log in here'}
           </a>
         </p>

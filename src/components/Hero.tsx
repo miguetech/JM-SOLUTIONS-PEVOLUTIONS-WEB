@@ -1,6 +1,13 @@
 import React from 'react';
+import { useTranslations } from '../i18n/utils';
 
-const Hero: React.FC = () => {
+interface Props {
+  lang: 'en' | 'es' | 'pt';
+}
+
+const Hero: React.FC<Props> = ({ lang }) => {
+  const t = useTranslations(lang);
+
   return (
     <div className="glass-card overflow-hidden">
       {/* Background/Art Section */}
@@ -21,9 +28,9 @@ const Hero: React.FC = () => {
 
       {/* Content Section */}
       <div className="p-8">
-        <h2 className="text-3xl font-bold text-white mb-4">Welcome to the PEvolutions BETA!</h2>
+        <h2 className="text-3xl font-bold text-white mb-4">{t('hero.welcome')}</h2>
         <p className="text-gray-400 mb-6 leading-relaxed">
-          The World meets its latest adventure in the Kanto region. Join thousands of trainers in this new journey.
+          {t('hero.description')}
         </p>
 
         <ul className="space-y-4 mb-8">
@@ -32,7 +39,7 @@ const Hero: React.FC = () => {
               <div className="w-2 h-2 rounded-full bg-brand-accent"></div>
             </div>
             <p className="text-gray-300">
-              <span className="font-bold text-white">Optimized map</span> to explore the entire Kanto region without limits.
+              {t('hero.map')}
             </p>
           </li>
           <li className="flex items-start gap-4">
@@ -40,13 +47,13 @@ const Hero: React.FC = () => {
               <div className="w-2 h-2 rounded-full bg-brand-accent"></div>
             </div>
             <p className="text-gray-300">
-              <span className="font-bold text-white">Optimized map based on the Kanto region</span> with unique features.
+              {t('hero.kanto')}
             </p>
           </li>
         </ul>
 
         <button className="btn-primary flex items-center gap-2">
-          <span>Important</span>
+          <span>{t('hero.button')}</span>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>

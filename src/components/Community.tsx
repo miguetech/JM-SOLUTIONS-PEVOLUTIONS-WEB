@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslations } from '../i18n/utils';
 
 interface SocialLink {
   name: string;
@@ -15,7 +16,13 @@ interface Event {
   tag: 'Contest' | 'Tournament' | 'Update';
 }
 
-const Community: React.FC = () => {
+interface Props {
+  lang: 'en' | 'es' | 'pt';
+}
+
+const Community: React.FC<Props> = ({ lang }) => {
+  const t = useTranslations(lang);
+
   const socials: SocialLink[] = [
     {
       name: 'Discord',
@@ -54,21 +61,21 @@ const Community: React.FC = () => {
 
   const upcomingEvents: Event[] = [
     {
-      title: 'Crystal League Tournament',
+      title: lang === 'es' ? 'Torneo Liga Cristal' : lang === 'pt' ? 'Torneio Liga Cristal' : 'Crystal League Tournament',
       date: 'Jan 20, 2026',
-      description: 'The ultimate PvP tournament for trainers level 50+. Battle for the Crystal Cup and 10,000 Gold.',
+      description: lang === 'es' ? 'El torneo PvP definitivo para entrenadores nivel 50+. Lucha por la Copa de Cristal y 10,000 de Oro.' : lang === 'pt' ? 'O torneio PvP definitivo para treinadores de nível 50+. Battle for the Crystal Cup and 10,000 Gold.' : 'The ultimate PvP tournament for trainers level 50+. Battle for the Crystal Cup and 10,000 Gold.',
       tag: 'Tournament'
     },
     {
-      title: 'Legendary Bird Sighting',
+      title: lang === 'es' ? 'Avistamiento de Ave Legendaria' : lang === 'pt' ? 'Avistamento de Pássaro Lendário' : 'Legendary Bird Sighting',
       date: 'Jan 15, 2026',
-      description: 'Articuno has been spotted near the Frozen Peaks. Team up with your guild to witness this event.',
+      description: lang === 'es' ? 'Articuno ha sido visto cerca de los Picos Helados. Forma equipo con tu gremio para presenciar este evento.' : lang === 'pt' ? 'Articuno foi avistado perto dos Picos Congelados. Junte-se à sua guilda para testemunhar este evento.' : 'Articuno has been spotted near the Frozen Peaks. Team up with your guild to witness this event.',
       tag: 'Contest'
     },
     {
-      title: 'Economy Rebalance Patch',
+      title: lang === 'es' ? 'Parche de Rebalanceo' : lang === 'pt' ? 'Patch de Rebalanceamento' : 'Economy Rebalance Patch',
       date: 'Jan 10, 2026',
-      description: 'Technical update focusing on market stability and trading improvements.',
+      description: lang === 'es' ? 'Actualización técnica centrada en la estabilidad del mercado y mejoras en el comercio.' : lang === 'pt' ? 'Atualização técnica focada na estabilidade do mercado e melhorias nas trocas.' : 'Technical update focusing on market stability and trading improvements.',
       tag: 'Update'
     }
   ];
@@ -80,20 +87,20 @@ const Community: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/20 to-purple-600/20 mix-blend-overlay"></div>
         <div className="relative p-8 md:p-12 flex flex-col gap-6">
           <div className="flex flex-col gap-3">
-            <span className="text-brand-accent font-black uppercase tracking-[0.3em] text-sm">Welcome back, Trainer</span>
+            <span className="text-brand-accent font-black uppercase tracking-[0.3em] text-sm">{t('community.hero_welcome')}</span>
             <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter italic leading-none">
-              Community <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-purple-400">Hub</span>
+              {t('community.hero_title_prefix')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-purple-400">{t('community.hero_title_suffix')}</span>
             </h2>
           </div>
           <p className="text-gray-300 max-w-xl text-lg leading-relaxed">
-            The heart of PEvolutions. Connect with thousands of trainers worldwide, participate in exclusive events, and shape the future of our world.
+            {t('community.hero_desc')}
           </p>
           <div className="flex flex-wrap gap-4 mt-4">
             <button className="px-8 py-3 bg-brand-accent text-brand-bg font-black uppercase tracking-widest text-sm rounded-xl hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,243,255,0.3)]">
-              Join Discord
+              {t('community.join_discord')}
             </button>
             <button className="px-8 py-3 bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-sm rounded-xl hover:bg-white/10 transition-all">
-              Latest News
+              {t('community.latest_news')}
             </button>
           </div>
         </div>
@@ -119,7 +126,7 @@ const Community: React.FC = () => {
               <p className="text-sm text-gray-500">Official {social.name} channel</p>
             </div>
             <div className="flex items-center gap-2 text-xs font-bold text-brand-accent uppercase tracking-widest mt-2 group-hover:gap-4 transition-all">
-              Visit Community
+              {t('community.visit')}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </div>
           </a>
@@ -132,7 +139,7 @@ const Community: React.FC = () => {
         <div className="space-y-6">
           <div className="flex items-center gap-4">
             <div className="h-0.5 w-12 bg-brand-accent"></div>
-            <h3 className="text-2xl font-black text-white uppercase italic tracking-wider">Upcoming Events</h3>
+            <h3 className="text-2xl font-black text-white uppercase italic tracking-wider">{t('community.events_title')}</h3>
           </div>
           <div className="space-y-4">
             {upcomingEvents.map((event, i) => (
@@ -157,7 +164,7 @@ const Community: React.FC = () => {
         <div className="space-y-6">
           <div className="flex items-center gap-4">
             <div className="h-0.5 w-12 bg-purple-500"></div>
-            <h3 className="text-2xl font-black text-white uppercase italic tracking-wider">Top Guilds</h3>
+            <h3 className="text-2xl font-black text-white uppercase italic tracking-wider">{t('community.guilds_title')}</h3>
           </div>
           <div className="grid grid-cols-1 gap-4">
             {[
@@ -183,7 +190,7 @@ const Community: React.FC = () => {
             ))}
           </div>
           <button className="w-full py-4 glass-card border-dashed text-gray-400 font-bold uppercase tracking-widest text-sm hover:border-brand-accent/50 hover:text-white transition-all">
-            View All Guilds
+            {t('community.view_guilds')}
           </button>
         </div>
       </div>
