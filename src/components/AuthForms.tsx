@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface AuthFormProps {
   type: 'login' | 'register';
@@ -6,72 +6,126 @@ interface AuthFormProps {
 
 export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const isLogin = type === 'login';
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    if (isLogin) {
+      // Mock Login
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        if (user.username === username && user.password === password) {
+          localStorage.setItem('isLoggedIn', 'true');
+          window.location.href = '/account';
+          return;
+        }
+      }
+      setError('Invalid username or password.');
+    } else {
+      // Mock Register
+      if (password !== confirmPassword) {
+        setError('Passwords do not match.');
+        return;
+      }
+      const user = { username, email, password };
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('isLoggedIn', 'true');
+      window.location.href = '/account';
+    }
+  };
 
   return (
-    <div className="glass-card p-8 w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold text-white mb-6 text-center">
-        {isLogin ? 'Welcome Back!' : 'Create an Account'}
+    <div className="glass-card p-8 w-full max-w-md mx-auto relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <h2 className="text-3xl font-black text-white mb-8 text-center uppercase tracking-tighter italic">
+        {isLogin ? 'Welcome ' : 'Create '}
+        <span className="text-brand-accent">{isLogin ? 'Back' : 'Account'}</span>
       </h2>
+
+      {error && (
+        <div className="mb-6 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold flex items-center gap-2">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {error}
+        </div>
+      )}
       
-      <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Username</label>
+          <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-1">Username</label>
           <input 
             type="text" 
+            required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your username"
-            className="w-full bg-brand-bg/50 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-brand-accent/50 transition-colors"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-accent/50 transition-all font-medium"
           />
         </div>
 
         {!isLogin && (
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-300">Email Address</label>
+            <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-1">Email Address</label>
             <input 
               type="email" 
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="example@email.com"
-              className="w-full bg-brand-bg/50 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-brand-accent/50 transition-colors"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-accent/50 transition-all font-medium"
             />
           </div>
         )}
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Password</label>
+          <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-1">Password</label>
           <input 
             type="password" 
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="w-full bg-brand-bg/50 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-brand-accent/50 transition-colors"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-accent/50 transition-all font-medium"
           />
         </div>
 
         {!isLogin && (
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-300">Confirm Password</label>
+            <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-1">Confirm Password</label>
             <input 
               type="password" 
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full bg-brand-bg/50 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-brand-accent/50 transition-colors"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-accent/50 transition-all font-medium"
             />
           </div>
         )}
 
         {isLogin && (
           <div className="flex justify-end">
-            <a href="#" className="text-xs text-brand-accent hover:underline">Forgot password?</a>
+            <a href="#" className="text-xs font-bold text-brand-accent/70 hover:text-brand-accent transition-colors">Forgot password?</a>
           </div>
         )}
 
-        <button className="w-full btn-primary py-3 flex items-center justify-center gap-2">
-          <span>{isLogin ? 'Sign In' : 'Create Account'}</span>
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7-7 7" />
-          </svg>
+        <button type="submit" className="w-full relative group overflow-hidden bg-brand-accent text-brand-bg font-black uppercase tracking-widest py-4 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all">
+          <span className="relative z-10">{isLogin ? 'Sign In' : 'Create Account'}</span>
+          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
         </button>
       </form>
 
-      <div className="mt-8 pt-6 border-t border-white/5 text-center">
-        <p className="text-sm text-gray-400">
+      <div className="mt-10 pt-8 border-t border-white/5 text-center">
+        <p className="text-sm font-medium text-gray-400">
           {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <a href={isLogin ? "/register" : "/login"} className="text-brand-accent hover:underline font-medium">
+          <a href={isLogin ? "/register" : "/login"} className="text-brand-accent hover:text-brand-accent/80 transition-colors font-black uppercase tracking-wider text-xs ml-1">
             {isLogin ? 'Sign up now' : 'Log in here'}
           </a>
         </p>

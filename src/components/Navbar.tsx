@@ -3,12 +3,15 @@ import React, { useState, useEffect } from 'react';
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
+    setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
 
     const handleNavigation = () => {
       setCurrentPath(window.location.pathname);
+      setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
     };
 
     document.addEventListener('astro:after-navigation', handleNavigation);
@@ -20,6 +23,7 @@ const Navbar: React.FC = () => {
     { name: 'Downloads', href: '/downloads' },
     { name: 'Forum', href: '/forum' },
     { name: 'Community', href: '/community' },
+    { name: isLoggedIn ? 'Dashboard' : 'Login', href: isLoggedIn ? '/account' : '/login' },
   ];
 
   const getLinkClasses = (href: string) => {
